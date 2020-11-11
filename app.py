@@ -1,16 +1,10 @@
 # coding: utf-8
 
 from flask import Flask, request, abort
-
-# 從linebot 套件包裡引用 LineBotApi 與 WebhookHandler 類別
-from linebot import (
-    LineBotApi, WebhookHandler
-)
+from linebot import LineBotApi, WebhookHandler
 
 # 引用無效簽章錯誤
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, ImageMessage, TextSendMessage, ImageSendMessage, TemplateSendMessage, FlexSendMessage
 from linebot.models import RichMenu
 
@@ -39,10 +33,9 @@ switch = False
 
 #辨識func
 def readheadshot(photo):
-
     '''
 
-    :param photo: input binary
+    :param photo: input binary of pic
     :return: output string
     '''
 
@@ -51,8 +44,9 @@ def readheadshot(photo):
     img  = cv2.imdecode(arr, -1)
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #轉灰階
-
-    faces = face_cascade.detectMultiScale( # 偵測臉部
+    
+    # 偵測臉部
+    faces = face_cascade.detectMultiScale( 
         gray,
         scaleFactor=1.01,
         minNeighbors=5,
